@@ -56,13 +56,11 @@ global.alert = function (message) {
 };
 
 global.console.errors = [];
-global.console.error = function () {
-    console.error(arguments);
-};
+// global.console.error = function () {
+//     console.error(arguments);
+// };
 
-require('select2/select2.js'); // works fine with select2 version 3.x
-// require('select2/dist/js/select2.full.js')(); // FAILS if ( $.event.fixHooks ) { TypeError: Cannot read properties of undefined (reading 'fixHooks')
-// require('select2/dist/js/select2.full.js'); // FAILS TypeError: $(...).select2 is not a function
+require('select2/dist/js/select2.full.js')(dom, $);
 
 const Jasmine = require('jasmine');
 const jasmine = new Jasmine();

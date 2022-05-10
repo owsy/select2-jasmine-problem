@@ -11,10 +11,13 @@ const html = `<form>
 describe('Loading select2', function () {
     beforeEach(function () {
         htmlDom.setup(html);
-        $('.select2').select2();
     });
 
     it('does not crash', function () {
-        expect(1).toBe(1);
+        expect($('#selectTest').val()).toBe('2');
+        $('#selectTest').select2().val('1');
+        expect($('.select2').val()).toBe('1');
+        $('#selectTest').select2().val('2');
+        expect($('.select2').val()).toBe('2');
     });
 });

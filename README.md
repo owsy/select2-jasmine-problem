@@ -1,13 +1,21 @@
-Select 2 4.x.x Jasmine Problem
+Select 2 4.x.x Node+Jasmine testing example
 ==
 
-This is a toy project representing a real production project that we have a problem with.
+This is a toy project representing a real production project that we had a problem with.
 
 The project worked fine under Select2 version 3.
 
 We need to upgrade select2 for several reasons.
 
-Under select2 version 4, everything works just fine, EXCEPT, we cannot get Jasmine (unit testing) to work. At all.
+Under select2 version 4, everything works just fine, EXCEPT, we could not get Jasmine (unit testing) to work. At all.
+
+Turned out we had to feed it like this:
+
+```javascript
+require('select2/dist/js/select2.full.js')(dom, $);
+```
+
+EVERYTHING BELOW THIS LINE IS OLD:
 
 Examining the problem for yourself
 --

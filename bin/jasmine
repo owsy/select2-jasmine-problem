@@ -1,0 +1,73 @@
+#!/usr/bin/env node
+// vim: filetype=javascript
+
+process.env.TZ = 'UTC';
+
+const jQuery = require('jquery');
+
+global.$ = jQuery;
+
+global.XMLHttpRequest = function () {
+    return {};
+};
+
+const jsdom = require('jsdom');
+const { JSDOM } = jsdom;
+const dom = new JSDOM('<html><body></body></html>');
+
+dom.window.scrollTo = () => {};
+
+global.dom = dom;
+
+global.window = dom.window;
+global.window.confirm = function () {
+    return true;
+};
+global.$ = jQuery(window);
+
+global.$.fn.validate = function () {};
+global.$.fn.valid = function () {
+    return true;
+};
+global.jQuery = global.$;
+global.document = window.document;
+global.HTMLElement = window.HTMLElement;
+global.navigator = {
+    userAgent: 'node.js',
+    geolocation: {
+        getCurrentPosition: function () {},
+    },
+};
+
+global.history = {
+    replaceState: function () {},
+};
+
+global.location = {
+    reloaded: false,
+    reload: function () {
+        this.reloaded = true;
+    },
+    search: '/app',
+};
+global.alertMessage = null;
+global.alert = function (message) {
+    alertMessage = message;
+};
+
+global.console.errors = [];
+global.console.error = function () {
+    console.error(arguments);
+};
+
+require('select2/select2.js'); // works fine with select2 version 3.x
+// require('select2/dist/js/select2.full.js')(); // FAILS if ( $.event.fixHooks ) { TypeError: Cannot read properties of undefined (reading 'fixHooks')
+// require('select2/dist/js/select2.full.js'); // FAILS TypeError: $(...).select2 is not a function
+
+const Jasmine = require('jasmine');
+const jasmine = new Jasmine();
+const filesToRun = process.argv.slice(2);
+
+jasmine.loadConfigFile('jasmine.json');
+jasmine.configureDefaultReporter({ showColors: false });
+jasmine.execute(0 !== filesToRun.length ? filesToRun : null);
